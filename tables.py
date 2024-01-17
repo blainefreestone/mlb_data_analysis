@@ -1,5 +1,6 @@
 import pandas as pd
 
+# Returns pandas DataFrame with hitting statistics every individual player in every year from 1871 to 2015.
 def get_all_players_batting_data():
     batting_data = pd.read_csv(r"data\\Batting.csv")
     batting_data.set_index("playerID")
@@ -13,3 +14,8 @@ def get_all_players_batting_data():
                     [["playerID", "nameLast", "nameFirst", "yearID", "AB", "H", "2B", "3B", "HR", "BB", "SO"]] \
                     .sort_values(by=["yearID", "nameLast", "nameFirst"]) \
                     .dropna()
+
+# Returns pandas DataFrame with hitting statistics for a given player in every year there is data.
+def get_player_batting_data(player_id):
+    batting_data = get_all_players_batting_data()
+    return batting_data.query(f"playerID == '{playerID}'")
