@@ -18,4 +18,10 @@ def get_all_players_batting_data():
 # Returns pandas DataFrame with hitting statistics for a given player in every year there is data.
 def get_player_batting_data(player_id):
     batting_data = get_all_players_batting_data()
-    return batting_data.query(f"playerID == '{playerID}'")
+    return batting_data.query(f"playerID == '{player_id}'")
+
+# Returns pandas DataFrame with league-wide 
+def get_league_batting_data():
+    return get_all_players_batting_data()[["yearID", "AB", "H", "2B", "3B", "HR", "BB", "SO"]] \
+                                         .groupby("yearID") \
+                                         .sum()
