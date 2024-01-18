@@ -17,3 +17,15 @@ class BattingDataDisplay:
         league_data.plot(marker="none")
         plt.xlabel("Season")
         plt.show()
+
+    def print_player_batting_statistics(self, player_id):
+        print(self.batting_data.statistics_for_player(player_id))
+
+    def print_league_batting_statistics(self):
+        print(self.batting_data.statistics_for_league())
+
+    def print_player_batting_data(self, player_id):
+        print(self.batting_data.for_player(player_id))
+
+    def print_league_batting_data(self):
+        print(self.batting_data.for_league())
