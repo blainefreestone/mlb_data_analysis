@@ -8,9 +8,7 @@ class BattingData:
     def __construct_all_players_batting_data(self):
         # Convert csv files into Pandas DataFrames
         batting_data = pd.read_csv(r"data\\Batting.csv")
-        batting_data.set_index("playerID")
         master_data = pd.read_csv(r"data\\Master.csv")
-        master_data.set_index("playerID")
         # Join two tables with the playerID as the index
         return pd.merge(master_data, \
                         batting_data, \
@@ -20,7 +18,8 @@ class BattingData:
 
     # Returns pandas DataFrame with hitting statistics for a given player in every year there is data.
     def for_player(self, player_id):
-        return self.all_players_batting_data.query(f"playerID == '{player_id}'")
+        return self.all_players_batting_data.query(f"playerID == '{player_id}'") \
+                                            .set_index("yearID")
 
     # Returns pandas DataFrame with league-wide 
     def for_league(self):
@@ -50,7 +49,7 @@ class BattingData:
 
     # Return DataFrame with player info and three summary statistics.
     def statistics_for_player(self, player_id):
-        return self.__statistics(self.for_player(player_id))[["playerID", "nameLast", "nameFirst", "yearID", "AVG", "OBP", "SLG"]]
+        return self.__statistics(self.for_player(player_id))[["playerID", "nameLast", "nameFirst", "AVG", "OBP", "SLG"]]
     
     # Returns DataFrame with year and three league-wide summary statistics.
     def statistics_for_league(self):
