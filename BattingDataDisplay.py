@@ -29,3 +29,6 @@ class BattingDataDisplay:
 
     def print_league_batting_data(self):
         print(self.batting_data.for_league())
+
+    def print_predict_model_data(self):
+        print(self.batting_data.for_predict_model())

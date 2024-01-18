@@ -13,13 +13,14 @@ class BattingData:
         return pd.merge(master_data, \
                         batting_data, \
                         on=["playerID"]) \
-                        [["playerID", "nameLast", "nameFirst", "yearID", "AB", "H", "2B", "3B", "HR", "BB", "HBP", "SO", "SF"]] \
+                        [["playerID", "nameLast", "nameFirst", "birthYear", "yearID", "AB", "H", "2B", "3B", "HR", "BB", "HBP", "SO", "SF"]] \
                         .sort_values(by=["yearID", "nameLast", "nameFirst"])
 
     # Returns pandas DataFrame with hitting statistics for a given player in every year there is data.
     def for_player(self, player_id):
         return self.all_players_batting_data.query(f"playerID == '{player_id}'") \
-                                            .set_index("yearID")
+                                            .set_index("yearID") \
+                                            [["playerID", "nameLast", "nameFirst", "AB", "H", "2B", "3B", "HR", "BB", "HBP", "SO", "SF"]]
 
     # Returns pandas DataFrame with league-wide 
     def for_league(self):
@@ -29,7 +30,7 @@ class BattingData:
                                             .sum()
 
     # Returns DataFrame with batting average, on-base-percentage and slugging percentage added. 
-    def __statistics(self, data_frame):
+    def __with_statistics(self, data_frame):
         # Needed parameters for statistic calculations:
         hits = data_frame.H
         at_bats = data_frame.AB
@@ -49,8 +50,21 @@ class BattingData:
 
     # Return DataFrame with player info and three summary statistics.
     def statistics_for_player(self, player_id):
-        return self.__statistics(self.for_player(player_id))[["playerID", "nameLast", "nameFirst", "AVG", "OBP", "SLG"]]
+        return self.__with_statistics(self.for_player(player_id))[["playerID", "nameLast", "nameFirst", "AVG", "OBP", "SLG"]]
     
     # Returns DataFrame with year and three league-wide summary statistics.
     def statistics_for_league(self):
-        return self.__statistics(self.for_league())[["AVG", "OBP", "SLG"]]
+        return self.__with_statistics(self.for_league())[["AVG", "OBP", "SLG"]]
+    
+    def for_predict_model(self):
+        data = self.__with_statistics(self.all_players_batting_data)
+        
+        # Feature engineering:
+        data["age"] = data.yearID - data.birthYear # Age
+        # Number of previous seasons
+        # Number of previous at bats
+        # Career AVG
+        # SD of AVGs (seasonal)
+        # etc.
+
+        return self.__with_statistics(self.all_players_batting_data)[["playerID", "nameLast", "nameFirst", "age", "AB", "AVG"]]
