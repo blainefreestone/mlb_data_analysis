@@ -62,9 +62,13 @@ class BattingData:
         # Feature engineering:
         data["age"] = data.yearID - data.birthYear # Age
         # Number of previous seasons
-        # Number of previous at bats
+        # Career H
+        data["careerH"] = data.groupby("playerID")["H"].cumsum() - data.H
+        # Career AB
+        data["careerAB"] = data.groupby("playerID")["AB"].cumsum() - data.AB
         # Career AVG
+        data["careerAVG"] = (data.groupby("playerID")["H"].cumsum() - data.H) / (data.groupby("playerID")["AB"].cumsum() - data.AB)
         # SD of AVGs (seasonal)
         # etc.
 
-        return self.__with_statistics(self.all_players_batting_data)[["playerID", "nameLast", "nameFirst", "age", "AB", "AVG"]]
+        return self.__with_statistics(data)[["playerID", "nameLast", "nameFirst", "age", "AB", "AVG", "careerAB", "careerH"]]
