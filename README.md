@@ -84,6 +84,15 @@ Just as with league statistics, given a playerID we can graph a player's statist
 
 ![Barry Bonds Statistics](images/bondsba01_statistics.png)
 
+These graphs are generated with the following method:
+```python
+def graph_player_batting_statistics(self, player_id):
+    player_data = self.batting_data.statistics_for_player(player_id)
+    player_data.plot(marker="o", linestyle="dashed")
+    plt.title(f"{self.batting_data.name_for_player(player_id)} Statistics")
+    plt.xlabel("Season")
+    plt.show()
+```
 
 # Development
 
