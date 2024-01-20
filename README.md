@@ -76,8 +76,14 @@ def graph_league_batting_statistics(self):
 ```
 
 ## How have the same batting statistics changed over a given player's individual career?
+Just as with league statistics, given a playerID we can graph a player's statistics over his career. These graphs show trends and changes in a player's batting statistics over his individual career:
 
-With the player
+![Pablo Sandoval Statistics](images/sandopa01_statistics.png)
+
+![Ichiro Suzuki Statistics](images/suzukic01_statistics.png)
+
+![Barry Bonds Statistics](images/bondsba01_statistics.png)
+
 
 # Development
 
