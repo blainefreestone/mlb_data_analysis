@@ -1,4 +1,5 @@
 import pandas as pd
+pd.options.mode.chained_assignment = None
 
 class BattingData:
     def __init__(self):
@@ -79,4 +80,4 @@ class BattingData:
         # SD of AVGs (seasonal)
         # etc.
 
-        return self.__with_statistics(data)[["playerID", "nameLast", "nameFirst", "age", "AB", "AVG", "careerAB", "careerH"]]
+        return data[["yearID", "playerID", "nameLast", "nameFirst", "age", "AB", "AVG", "careerAVG"]]
