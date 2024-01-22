@@ -15,6 +15,13 @@ class BattingData:
                         on=["playerID"]) \
                         [["playerID", "nameLast", "nameFirst", "birthYear", "yearID", "AB", "H", "2B", "3B", "HR", "BB", "HBP", "SO", "SF"]] \
                         .sort_values(by=["yearID", "nameLast", "nameFirst"])
+    
+    # Return full name for player given playerID
+    def name_for_player(self, player_id):
+        names = self.all_players_batting_data.query(f"playerID == '{player_id}'") \
+                                             .iloc[0] \
+                                             [["nameFirst", "nameLast"]]
+        return f"{names['nameFirst']} {names['nameLast']}"
 
     # Returns pandas DataFrame with hitting statistics for a given player in every year there is data.
     def for_player(self, player_id):
@@ -46,8 +53,9 @@ class BattingData:
         data_frame["AVG"] = hits / at_bats
         data_frame["OBP"] = (hits + base_on_balls + hit_by_pitch) / (at_bats + base_on_balls + hit_by_pitch + sacrifice_flies)
         data_frame["SLG"] = ((singles) + (doubles * 2) + (triples * 3) + (home_runs * 4)) / at_bats
-        return data_frame
 
+        return data_frame.query("AB > 100")
+    
     # Return DataFrame with player info and three summary statistics.
     def statistics_for_player(self, player_id):
         return self.__with_statistics(self.for_player(player_id))[["playerID", "nameLast", "nameFirst", "AVG", "OBP", "SLG"]]
