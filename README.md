@@ -148,9 +148,9 @@ gomezca01 |    Carlos |     Gomez |  0.241611 |       0.244528
 morelmi01 |     Mitch |  Moreland |  0.278132 |       0.255698
 swihabl01 |     Blake |   Swihart |  0.274306 |       0.253211
 
-### Testing the Predictive Model
+### Testing the Accuracy of the Predictive Model
 
-We can test the predictive model by randomly splitting the original data in two groups: *test* and *validation*. This is done using the `sklearn` library:
+We can test the accuracy of the predictive model by randomly splitting the original data in two groups: *test* and *validation*. This is done using the `sklearn` library:
 
 ```python
 from sklearn.model_selection import train_test_split
