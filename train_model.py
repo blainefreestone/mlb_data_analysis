@@ -25,8 +25,6 @@ def test_model():
 
     # Generate predictions with the model
     predictions = pd.Series(gradient_model.predict(X_valid))
-    print(predictions)
-    print(y_valid)
 
-    # Get mean absolute error for predictions
+    # Return mean absolute error for predictions
     return mean_absolute_error(y_valid, predictions)
