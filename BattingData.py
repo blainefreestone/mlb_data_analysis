@@ -1,6 +1,7 @@
 import pandas as pd
 pd.options.mode.chained_assignment = None
 
+# For generating and organizing data from The Baseball Databank
 class BattingData:
     def __init__(self):
         self.all_players_batting_data = self.__construct_all_players_batting_data()
@@ -65,6 +66,7 @@ class BattingData:
     def statistics_for_league(self):
         return self.__with_statistics(self.for_league())[["AVG", "OBP", "SLG"]]
     
+    # Returns DataFrame with summary statistics and engineered features for use by the predictive model.
     def for_predict_model(self):
         data = self.__with_statistics(self.all_players_batting_data)
         
