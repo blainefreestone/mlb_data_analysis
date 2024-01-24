@@ -18,11 +18,10 @@ gradient_model = XGBRegressor(random_state=0, n_estimators=500, learning_rate=0.
 gradient_model.fit(X, y)
 
 # Generate input data for random model for 10 randomly selected players in 2015
-playerIDs = ['morelmi01', 'larocad01', 'beckhti01', 'giavojo01', 'swihabl01', 'gomezca01', 'loneyja01', 'crawfbr01', 'gardnbr01', 'bautijo02']
+playerIDs = ['morelmi01', 'beckhti01',  'swihabl01', 'gomezca01', 'crawfbr01', 'gardnbr01']
 year = 2015
 mask = batting_data.for_predict_model()["playerID"].isin(playerIDs)
 batting_data_2015 = batting_data.for_predict_model()[mask].query(f"yearID == {year}")
-print(batting_data_2015)
 
 # Generate predictions with the model
 predictions = pd.Series(gradient_model.predict(batting_data_2015[["age", "AB", "careerAVG"]]))
@@ -37,3 +36,5 @@ output = pd.DataFrame(
         "predicted_AVG": predictions,
     }
 )
+
+print(output)
