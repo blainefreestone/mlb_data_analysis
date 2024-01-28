@@ -1,6 +1,6 @@
 # Overview
 
-[Video Explanation](http://youtube.link.goes.here)
+[Video Explanation](https://youtu.be/T5mt-IMDfpg)
 
 `demo.py` showcases major program abilities in data analysis.
 
@@ -61,7 +61,7 @@ The resulting table includes all the rows in the **Batting** table, but columns 
 
 The `BattingDataDisplay` class handles printing and displaying tables and graphs for different subsets of the data. All images and tables in this section are generated in this way.
 
-## How do league-wide batting statistics (such as AVG, OBP, and SLG) change over the history of the MLB (from 1871 to 2015)?
+## How have league-wide batting statistics (such as AVG, OBP, and SLG) changed over the history of the MLB (from 1871 to 2015)?
 We can identify trends in league-wide batting statistics over a period of almost 150 years with the following graph:
 
 ![MLB League Statistics 1871-2015](images/league_statistics.png)
@@ -76,7 +76,7 @@ def graph_league_batting_statistics(self):
     plt.show()
 ```
 
-## How do the same batting statistics change over a given player's individual career?
+## How have the same batting statistics changed over a given player's individual career?
 Just as with league statistics, given a playerID, we can graph a player's statistics over his career. These graphs show trends and changes in a player's batting statistics over his individual career:
 
 ![Pablo Sandoval Statistics](images/sandopa01_statistics.png)
